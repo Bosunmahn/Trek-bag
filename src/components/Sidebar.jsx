@@ -1,12 +1,23 @@
 import AddItemForm from "./AddItemForm";
 import ButtonGroup from "./ButtonGroup";
 
-const Sidebar = ({setItems}) => {
+const Sidebar = ({
+  handleAddItem,
+  handleRemoveItem,
+  handleResetItems,
+  handleCompleteAllItems,
+  handleinCompleteAllItems,
+}) => {
   return (
     <div className="sidebar">
-      <AddItemForm setItems={setItems}/>
+      <AddItemForm handleAddItem={handleAddItem} />
 
-      <ButtonGroup />
+      <ButtonGroup
+        handleRemoveItem={handleRemoveItem}
+        handleResetItems={handleResetItems}
+        handleCompleteAllItems={handleCompleteAllItems}
+        handleinCompleteAllItems={handleinCompleteAllItems}
+      />
     </div>
   );
 };
