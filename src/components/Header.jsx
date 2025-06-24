@@ -1,12 +1,15 @@
 import Counter from "./Counter"
 import Logo from "./Logo"
 
-const Header = () => {
+const Header = ({ totalNumberOfItems, totalNumberOfPacked }) => {
   return (
     <header>
-        <Logo />
-        <Counter />
+      <Logo />
+      <Counter
+        totalNumberOfPacked={totalNumberOfPacked}
+        totalNumberOfItems={totalNumberOfItems}
+      />
     </header>
-  )
-}
+  );
+};
 export default Header

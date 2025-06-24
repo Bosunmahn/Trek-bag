@@ -1,6 +1,8 @@
-const Counter = () => {
+const Counter = ({ totalNumberOfItems, totalNumberOfPacked }) => {
   return (
-    <p><b>1 </b>/ 3 items packed</p>
-  )
-}
+    <p>
+      <b>{totalNumberOfPacked} </b>/ {totalNumberOfItems} items packed
+    </p>
+  );
+};
 export default Counter

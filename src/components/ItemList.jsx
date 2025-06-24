@@ -1,13 +1,47 @@
+import Select from "react-select";
+import EmptyView from "./EmptyView";
+import { useState } from "react";
+
 const ItemList = ({ items, handleDeleteItem, handleToggleItem }) => {
+
+  const [sortBy, setSortBy] = useState("default")
+
+  const sortedItems = [...items].sort((a, b) => {
+    if (sortBy === "packed") {
+      return b.packed - a.packed;
+    }
+
+    if (sortBy === "unpacked") {
+      return a.packed - b.packed;
+    }
+
+    return ;
+
+  })
+
+  const sortingOptions = [
+    { label: "sort by default", value: "default" },
+    { label: "sort by packed", value: "packed" },
+    { label: "sort by unpacked", value: "unpacked" },
+  ];
+
   return (
-    <ul>
-      {items.map((item) => {
+    <ul className="item-list">
+      {items.length === 0 && <EmptyView />}
+
+      {items.length > 0 ? (
+        <section className="sorting ">
+          <Select onChange={(option)=> setSortBy(option.value)} defaultValue={sortingOptions[0]}   options =  {sortingOptions} />
+        </section>
+      ) : null}
+
+      {sortedItems.map((item) => {
         return (
           <Item
             key={item.id}
             item={item}
-            handleDeleteItem={handleDeleteItem}
-            handleToggleItem={handleToggleItem}
+            onDeleteItem={handleDeleteItem}
+            onToggleItem={handleToggleItem}
           />
         );
       })}
@@ -16,7 +50,7 @@ const ItemList = ({ items, handleDeleteItem, handleToggleItem }) => {
 };
 export default ItemList;
 
-function Item({ item, handleDeleteItem, handleToggleItem }) {
+function Item({ item, onDeleteItem, onToggleItem }) {
   return (
     <li className="item">
       <label>
@@ -24,7 +58,7 @@ function Item({ item, handleDeleteItem, handleToggleItem }) {
           checked={item.packed}
           type="checkbox"
           onClick={() => {
-            handleToggleItem(item.id);
+            onToggleItem(item.id);
           }}
         />
         {item.name}
@@ -32,7 +66,7 @@ function Item({ item, handleDeleteItem, handleToggleItem }) {
 
       <button
         onClick={() => {
-          handleDeleteItem(item.id);
+          onDeleteItem(item.id);
         }}
       >
         ❌

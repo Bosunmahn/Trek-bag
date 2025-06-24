@@ -18,23 +18,21 @@ function App() {
     setItems((prev) => [...prev, newItem]);
   };
 
-
   const handleDeleteItem = (id) => {
-    const newItem = items.filter((item) => item.id !== id )
+    const newItem = items.filter((item) => item.id !== id);
     setItems(newItem);
-  }
-
+  };
 
   const handleToggleItem = (id) => {
     const newItems = items.map((item) => {
-      if (item.id === id ) {
-        return {...item, packed: !item.packed};
+      if (item.id === id) {
+        return { ...item, packed: !item.packed };
       }
 
       return item;
-    })
-    setItems(newItems)
-  }
+    });
+    setItems(newItems);
+  };
 
   const handleRemoveItem = () => {
     setItems([]);
@@ -58,12 +56,19 @@ function App() {
     setItems(newItems);
   };
 
+  const totalNumberOfItems = items.length
+
+  const totalNumberOfPacked = items.filter((item) => (item.packed)).length
+
   return (
     <>
       <BackgroundHeading />
 
       <main>
-        <Header />
+        <Header
+          totalNumberOfPacked={totalNumberOfPacked}
+          totalNumberOfItems={totalNumberOfItems}
+        />
         <ItemList
           items={items}
           handleDeleteItem={handleDeleteItem}
